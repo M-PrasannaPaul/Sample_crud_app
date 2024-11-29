@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Errors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            color: #343a40;
+        }
+        table {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Common Errors</h1>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Status Code</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for error in errors %}
+                <tr>
+                    <td>{{ error.status_code }}</td>
+                    <td>{{ error.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a href="/" class="btn btn-primary">Back to Upload</a>
+        </div>
+    </div>
+</body>
+</html>
