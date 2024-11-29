@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Logs</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .search-bar {
+            margin-bottom: 30px;
+        }
+        .search-bar .form-control {
+            width: 250px;
+            margin-right: 10px;
+        }
+        .table {
+            margin-top: 20px;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .thead-light th {
+            background-color: #007bff;
+            color: white;
+        }
+        tbody tr:hover {
+            background-color: #e9ecef;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .no-results {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>View Logs</h1>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <form class="form-inline" action="/logs" method="GET">
+                <input type="text" class="form-control" id="status_code" name="status_code" placeholder="Status Code" value="{{ request.args.get('status_code', '') }}">
+                <input type="text" class="form-control" id="client_ip" name="client_ip" placeholder="Client IP" value="{{ request.args.get('client_ip', '') }}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <!-- Table for Logs -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Timestamp</th>
+                        <th>Client IP</th>
+                        <th>Request URI</th>
+                        <th>Status Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if logs %}
+                        {% for log in logs %}
+                        <tr>
+                            <td>{{ log.id }}</td>
+                            <td>{{ log.timestamp }}</td>
+                            <td>{{ log.client_ip }}</td>
+                            <td>{{ log.request_uri }}</td>
+                            <td>{{ log.status_code }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="no-results">No logs found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <a href="/" class="btn btn-primary">Back to Upload</a>
+        </div>
+    </div>
+</body>
+</html>
+    
