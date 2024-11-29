@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>CRUD Application</title>
+    <style>
+        .container {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">CRUD Application</h2>
+        <form id="itemForm">
+            <div class="form-group">
+                <label for="itemId">Item ID:</label>
+                <input type="number" class="form-control" id="itemId" placeholder="Enter ID (e.g. 1)" required>
+            </div>
+            <div class="form-group">
+                <label for="itemName">Item Name:</label>
+                <input type="text" class="form-control" id="itemName" required>
+            </div>
+            <div class="form-group">
+                <label for="itemDescription">Description:</label>
+                <textarea class="form-control" id="itemDescription"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="categoryId">Category ID:</label>
+                <input type="number" class="form-control" id="categoryId" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <hr>
+        <h3>Items</h3>
+        <table class="table table-striped" id="itemsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function fetchItems() {
+            $.get('/items', function(data) {
+                $('#itemsTable tbody').empty();
+                data.forEach(item => {
+                    $('#itemsTable tbody').append(`
+                        <tr data-id="${item.id}">
+                            <td>${item.id}</td>
+                            <td>${item.name}</td>
+                            <td>${item.description}</td>
+                            <td>${item.category}</td>
+                            <td>
+                                <button class="btn btn-warning btn-edit">Edit</button>
+                                <button class="btn btn-danger btn-delete">Delete</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+            });
+        }
+
+        $('#itemForm').submit(function(event) {
+            event.preventDefault();
+
+            const itemData = {
+                name: $('#itemName').val(),
+                description: $('#itemDescription').val(),
+                category_id: $('#categoryId').val()
+            };
+
+            const itemId = $('#itemId').val(); // Get the ID from the input
+
+            // Check if the ID exists (for update) or if it is new
+            if (itemId) {
+                // Check if the ID exists in the table
+                const existingRow = $(`#itemsTable tbody tr[data-id="${itemId}"]`);
+
+                if (existingRow.length > 0) {
+                    // If the ID exists, update the item
+                    $.ajax({
+                        url: `/item/${itemId}`,
+                        type: 'PUT',
+                        data: JSON.stringify(itemData),
+                        contentType: 'application/json',
+                        success: function() {
+                            fetchItems();
+                            $('#itemForm')[0].reset();
+                        },
+                        error: function() {
+                            alert('Error updating item');
+                        }
+                    });
+                } else {
+                    // If the ID does not exist, treat it as a new item to be created
+                    $.ajax({
+                        url: '/item',
+                        type: 'POST',
+                        data: JSON.stringify({...itemData, id: itemId}), // Include ID in payload
+                        contentType: 'application/json',
+                        success: function() {
+                            fetchItems();
+                            $('#itemForm')[0].reset();
+                        },
+                        error: function() {
+                            alert('Error adding item');
+                        }
+                    });
+                }
+            } else {
+                // If the ID is not provided, show an alert
+                alert('Please enter a valid Item ID');
+            }
+        });
+
+        $(document).on('click', '.btn-delete', function() {
+            const row = $(this).closest('tr');
+            const itemId = row.data('id');
+            $.ajax({
+                url: `/item/${itemId}`,
+                type: 'DELETE',
+                success: function() {
+                    fetchItems();
+                },
+                error: function() {
+                    alert('Error deleting item');
+                }
+            });
+        });
+
+        $(document).on('click', '.btn-edit', function() {
+            const row = $(this).closest('tr');
+            const itemId = row.data('id');
+            $('#itemId').val(itemId); // Set the ID in the input for editing
+            $('#itemName').val(row.find('td:eq(1)').text());
+            $('#itemDescription').val(row.find('td:eq(2)').text());
+            $('#categoryId').val(row.find('td:eq(3)').text());
+        });
+
+        $(document).ready(function() {
+            fetchItems();
+        });
+    </script>
+</body>
+</html>
