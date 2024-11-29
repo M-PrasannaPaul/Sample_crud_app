@@ -1,0 +1,30 @@
+jq: error (at <stdin>:1): Cannot index string with string "uri"
+jq: error (at <stdin>:1): Cannot index number with string "status"
+[null] Client IP: null | Request URI:  | Status: 
+jq: error (at <stdin>:1): Cannot index string with string "uri"
+jq: error (at <stdin>:1): Cannot index number with string "status"
+[null] Client IP: null | Request URI:  | Status: 
+jq: error (at <stdin>:1): Cannot index string with string "uri"
+jq: error (at <stdin>:1): Cannot index number with string "status"
+[null] Client IP: null | Request URI:  | Status: 
+jq: error (at <stdin>:1): Cannot index string with string "uri"
+jq: error (at <stdin>:1): Cannot index number with string "status"
+[null] Client IP: null | Request URI:  | Status: 
+jq: error (at <stdin>:1): Cannot index string with string "uri"
+jq: error (at <stdin>:1): Cannot index number with string "status"
+[null] Client IP: null | Request URI:  | Status: 
+jq: error (at <stdin>:1): Cannot index string with string "uri"
+jq: error (at <stdin>:1): Cannot index number with string "status"
+[null] Client IP: null | Request URI:  | Status: 
+jq: error (at <stdin>:1): Cannot index string with string "uri"
+jq: error (at <stdin>:1): Cannot index number with string "status"
+[null] Client IP: null | Request URI:  | Status: 
+jq: error (at <stdin>:1): Cannot index string with string "uri"
+jq: error (at <stdin>:1): Cannot index number with string "status"
+[null] Client IP: null | Request URI:  | Status: 
+jq: error (at <stdin>:1): Cannot index string with string "uri"
+jq: error (at <stdin>:1): Cannot index number with string "status"
+[null] Client IP: null | Request URI:  | Status: 
+jq: error (at <stdin>:1): Cannot index string with string "uri"
+jq: error (at <stdin>:1): Cannot index number with string "status"
+[null] Client IP: null | Request URI:  | Status: 

@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      db: 
+        condition: service_healthy
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=Paul*1928
+      - MYSQL_DATABASE=log_monitoring
+      - FLASK_ENV=development
+    volumes:
+      - ./app:/app/app
+      - /home/madagalapaul/log_monitoring/logs/nginx_json_logs.txt:/app/app/nginx_json_logs.txt  
+    restart: always
+    networks:
+      - monitoring_network 
+
+  db:
+    image: mysql:5.7  
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Paul*1928
+      MYSQL_DATABASE: log_monitoring
+    ports:
+      - "3306:3306"  
+    volumes:
+      - db_data:/var/lib/mysql  
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-pPaul*1928"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - monitoring_network 
+
+volumes:
+  db_data:
+
+networks:
+  monitoring_network:  
+    driver: bridge
