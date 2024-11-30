@@ -21,7 +21,7 @@ services:
     networks:
       - monitoring_network 
 
-  db:
+  myflaskdbserver.mysql.database.azure.com:
     image: mysql:5.7  
     restart: always
     environment:
