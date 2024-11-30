@@ -1,7 +1,6 @@
 {
-    "user": "root",
+    "user": "mysqladmin",
     "password": "Paul*1928",
-    "host": "localhost",
-    "database": "logdb"
+    "host": "myflaskdbserver.mysql.database.azure.com",
+    "database": "log_monitoring"
 }
-
