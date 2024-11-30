@@ -17,6 +17,7 @@ db_config = {
     "password": os.environ.get("MYSQL_PASSWORD", "Paul*1928"),
     "host": os.environ.get("MYSQL_HOST", "myflaskdbserver.mysql.database.azure.com"),
     "database": os.environ.get("MYSQL_DATABASE", "log_monitoring"),
+    "ssl_ca": "/home/madagalapaul/Downloads/BaltimoreCyberTrustRoot.crt.pem",
 }
 
 app = Flask(__name__)
