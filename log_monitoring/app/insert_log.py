@@ -3,9 +3,9 @@ import json
 
 
 db_config = {
-    'user': 'root',
+    'user': 'mysqladmin',
     'password': 'Paul*1928',
-    'host': 'db',
+    'host': 'myflaskdbserver.mysql.database.azure.com',
     'database': 'log_monitoring'
 }
 
