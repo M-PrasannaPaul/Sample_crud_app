@@ -5,11 +5,8 @@ services:
     build: .
     ports:
       - "5000:5000"
-    depends_on:
-      db: 
-        condition: service_healthy
     environment:
-      - MYSQL_HOST=myflaskdbserver.mysql.database.azure.com
+      - MYSQL_HOST=myflaskdbserver.mysql.database.azure.com  # Azure MySQL server
       - MYSQL_USER=mysqladmin
       - MYSQL_PASSWORD=Paul*1928
       - MYSQL_DATABASE=log_monitoring
@@ -19,28 +16,11 @@ services:
       - /home/madagalapaul/log_monitoring/logs/nginx_json_logs.txt:/app/app/nginx_json_logs.txt  
     restart: always
     networks:
-      - monitoring_network 
-
-  myflaskdbserver.mysql.database.azure.com:
-    image: mysql:5.7  
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: Paul*1928
-      MYSQL_DATABASE: log_monitoring
-    ports:
-      - "3306:3306"  
-    volumes:
-      - db_data:/var/lib/mysql  
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "mysqladmin", "-pPaul*1928"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-    networks:
-      - monitoring_network 
+      - monitoring_network
 
 volumes:
-  db_data:
+  # No need for db_data volume since there's no local MySQL container
+    db_data:
 
 networks:
   monitoring_network:  
