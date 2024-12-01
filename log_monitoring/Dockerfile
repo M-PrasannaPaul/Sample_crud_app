@@ -2,21 +2,23 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-# Install dependencies
+# Copy requirements.txt and install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application files
+# Copy the application files from ./app to /app/app
 COPY ./app /app/app
 
-# Expose necessary ports
+# Expose the necessary ports
 EXPOSE 5000
 EXPOSE 8000
 EXPOSE 80
 
-# Copy entrypoint script into the container
-COPY ./log_monitoring/entrypoint.sh /app/entrypoint.sh
+# Copy the entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
+
+# Set the entrypoint
 ENTRYPOINT ["/app/entrypoint.sh"]
 
-# Command to run the app
+# Default command to run the application
 CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
