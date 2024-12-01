@@ -37,7 +37,7 @@ jobs:
     - name: Build and push container image
       uses: docker/build-push-action@v3
       with:
-        context: ./ # Point to the directory containing the Dockerfile
+        context: ./log_monitoring # Point to the directory containing the Dockerfile
         push: true
         tags: myregistry123456.azurecr.io/dockerapp:latest  # Ensure correct image tagging
         file: ./log_monitoring/Dockerfile  # Specify the correct path to the Dockerfile
