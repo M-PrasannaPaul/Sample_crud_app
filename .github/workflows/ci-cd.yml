@@ -18,8 +18,8 @@ jobs:
       - name: Log in to Azure Container Registry
         run: |
           az login --service-principal \
-            --username 3abf43ca-1a97-494f-acef-8fc5fd97f677 \
-            --password RzN8Q~WQXff7bGyvIEzSNWYH6mRVCpLNS3MwQcSg \
+            --username ${{ secrets.ACR_USERNAME }} \
+            --password ${{ secrets.ACR_PASSWORD }} \
             --tenant d7d7efd6-955f-4294-8526-b638e0bc351b
           az acr login --name myregistry123456
 
@@ -34,4 +34,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: dockerapp  # Replace with your Azure App Service name
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Add Azure Publish Profile as a secret
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Azure Publish Profile from secrets
