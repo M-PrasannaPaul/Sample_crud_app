@@ -27,14 +27,20 @@ jobs:
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
 
-    # Step 4: Build and push container image to ACR
+    # Step 4: Debug the working directory to ensure correct files are in place
+    - name: Debug working directory
+      run: |
+        pwd
+        ls -l
+
+    # Step 5: Build and push container image to ACR
     - name: Build and push container image
       uses: docker/build-push-action@v3
       with:
-        context: ./log_monitoring
+        context: . # Point to the directory containing the Dockerfile
         push: true
         tags: myregistry123456.azurecr.io/dockerapp:latest  # Ensure correct image tagging
-        file: ./log_monitoring/Dockerfile
+        file: ./log_monitoring/Dockerfile  # Specify the correct path to the Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
