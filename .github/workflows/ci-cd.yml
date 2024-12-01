@@ -27,7 +27,7 @@ jobs:
       # Step 3: Build and push the Docker image to ACR
       - name: Build and push Docker image
         run: |
-          docker build -t myregistry123456.azurecr.io/dockerapp:latest ./  # Set the build context to ./log_monitoring
+          docker build -t myregistry123456.azurecr.io/dockerapp:latest ./log_monitoring  # Set the build context to ./log_monitoring
           docker push myregistry123456.azurecr.io/dockerapp:latest        # Push to ACR
 
       # Step 4: Deploy to Azure Web App
