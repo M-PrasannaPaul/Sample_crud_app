@@ -31,10 +31,10 @@ jobs:
     - name: Build and push container image
       uses: docker/build-push-action@v3
       with:
-        context: .
+        context: ./log_monitoring
         push: true
         tags: myregistry123456.azurecr.io/dockerapp:latest  # Ensure correct image tagging
-        file: ./Dockerfile
+        file: ./log_monitoring/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
