@@ -14,9 +14,13 @@ EXPOSE 5000
 EXPOSE 8000
 EXPOSE 80
 
-# Copy the entrypoint script
-COPY ./log_monitoring/entrypoint.sh /app/entrypoint.sh
+# Copy the entrypoint script from the build context
+COPY entrypoint.sh /app/entrypoint.sh
+
+# Ensure the entrypoint script is executable
 RUN chmod +x /app/entrypoint.sh
+
+# Set the entrypoint
 ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Default command to run the application
