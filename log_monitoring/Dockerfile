@@ -15,7 +15,8 @@ EXPOSE 8000
 EXPOSE 80
 
 # Copy the entrypoint script
-COPY entrypoint.sh /app/entrypoint.sh
+COPY ./log_monitoring/entrypoint.sh /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Set the entrypoint
 ENTRYPOINT ["/app/entrypoint.sh"]
