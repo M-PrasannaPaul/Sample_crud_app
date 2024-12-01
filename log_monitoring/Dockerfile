@@ -9,18 +9,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application files from ./app to /app/app
 COPY ./app /app/app
 
-# Expose the necessary ports
+# Expose the necessary port for the application
 EXPOSE 5000
-EXPOSE 8000
-EXPOSE 80
 
-# Copy the entrypoint script from the build context
+# Copy the entrypoint script
 COPY entrypoint.sh /app/entrypoint.sh
 
 # Ensure the entrypoint script is executable
 RUN chmod +x /app/entrypoint.sh
 
-# Set the entrypoint
+# Use entrypoint to start the application
 ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Default command to run the application
