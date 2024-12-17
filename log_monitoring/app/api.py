@@ -194,6 +194,19 @@ def index():
 def metrics():
     return Response(generate_latest(), mimetype='text/plain')
 
+@app.route('/health', methods=['GET'])
+def health():
+    """Health endpoint for Load Balancer"""
+    try:
+        # Check DB connectivity as part of health
+        connection = mysql.connector.connect(**db_config)
+        connection.close()
+        return jsonify({"status": "healthy"}), 200
+    except Exception as e:
+        logging.error(f"Health check failed: {e}")
+        return jsonify({"status": "unhealthy"}), 500
+
+
 def start_metrics_server():
     
     start_http_server(8000)
